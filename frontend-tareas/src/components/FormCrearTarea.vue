@@ -23,6 +23,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { apiRequest } from '../config/config.js'
 
 const titulo = ref('')
 const detalle = ref('')
@@ -31,12 +32,19 @@ const mensaje = ref('')
 
 const handleSubmit = async () => {
   mensaje.value = ''
+  
+  // Verificar si hay token
+  const token = localStorage.getItem('token')
+  if (!token) {
+    mensaje.value = 'No hay sesión activa. Por favor, inicia sesión.'
+    return
+  }
+  
   try {
-    const response = await fetch('http://localhost:3000/api/tareas', {
+    const response = await apiRequest('/api/tareas', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
+        'Authorization': 'Bearer ' + token
       },
       body: JSON.stringify({
         titulo: titulo.value,
@@ -44,12 +52,20 @@ const handleSubmit = async () => {
         estado: estado.value
       })
     })
-    if (!response.ok) throw new Error('Error al crear la tarea')
+    
+    if (!response.ok) {
+      // Intentar obtener el mensaje de error del servidor
+      const errorData = await response.json().catch(() => null)
+      const errorMessage = errorData?.message || `Error ${response.status}: ${response.statusText}`
+      throw new Error(errorMessage)
+    }
+    
     titulo.value = ''
     detalle.value = ''
     estado.value = 'pendiente'
     mensaje.value = 'Tarea creada exitosamente.'
   } catch (error) {
+    console.error('Error al crear tarea:', error)
     mensaje.value = error.message
   }
 }

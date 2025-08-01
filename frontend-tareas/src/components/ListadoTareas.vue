@@ -74,6 +74,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { apiRequest } from '../config/config.js'
 
 const tareas = ref([])
 const loading = ref(true)
@@ -86,7 +87,7 @@ const tareaEditando = ref({})
 const fetchTareas = async () => {
   loading.value = true
   try {
-    const res = await fetch('http://localhost:3000/api/tareas', {
+    const res = await apiRequest('/api/tareas', {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
@@ -120,10 +121,9 @@ const cerrarModalEditar = () => {
 }
 const guardarEdicion = async () => {
   try {
-    await fetch(`http://localhost:3000/api/tareas/${tareaEditando.value._id}`, {
+    await apiRequest(`/api/tareas/${tareaEditando.value._id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       },
       body: JSON.stringify(tareaEditando.value)
@@ -142,7 +142,7 @@ const cerrarModalEliminar = () => {
 }
 const eliminarTarea = async () => {
   try {
-    await fetch(`http://localhost:3000/api/tareas/${tareaSeleccionada.value._id}`, {
+    await apiRequest(`/api/tareas/${tareaSeleccionada.value._id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')

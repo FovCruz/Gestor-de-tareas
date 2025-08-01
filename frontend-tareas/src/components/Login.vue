@@ -19,6 +19,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { apiRequest } from '../config/config.js'
 
 const email = ref('')
 const password = ref('')
@@ -29,9 +30,8 @@ const router = useRouter()
 const handleLogin = async () => {
   error.value = ''
   try {
-    const response = await fetch('http://localhost:3000/api/usuarios/login', {
+    const response = await apiRequest('/api/usuarios/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email.value, password: password.value })
     })
     if (!response.ok) {
