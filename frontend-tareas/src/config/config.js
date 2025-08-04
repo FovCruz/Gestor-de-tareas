@@ -6,6 +6,7 @@ export const config = {
   // Otras configuraciones que podrías necesitar
   APP_NAME: import.meta.env.VITE_APP_NAME || 'TG Tareas',
   APP_VERSION: import.meta.env.VITE_APP_VERSION || '1.0.0',
+  SERVER_NAME: import.meta.env.VITE_SERVER_NAME || 'TG Tareas Server',
   
   // Configuraciones por defecto
   DEFAULT_HEADERS: {

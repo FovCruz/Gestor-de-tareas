@@ -2,6 +2,10 @@
   <div class="login-container">
     <form @submit.prevent="handleLogin" class="login-form">
       <h2>Acceso al Sistema</h2>
+      <div class="server-info">
+        <p class="server-name">Servidor: {{ serverInfo.name }}</p>
+        <p class="server-ip">IP: {{ serverInfo.ip }}</p>
+      </div>
       <div class="form-group">
         <label for="email">Correo electrónico</label>
         <input v-model="email" id="email" type="email" required />
@@ -17,15 +21,44 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { apiRequest } from '../config/config.js'
+import { apiRequest, config } from '../config/config.js'
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
 const token = ref('')
 const router = useRouter()
+
+// Información del servidor
+const serverInfo = ref({
+  name: config.SERVER_NAME,
+  ip: 'Obteniendo...'
+})
+
+// Obtener información del servidor
+const getServerInfo = async () => {
+  try {
+    // Obtener la IP del servidor desde la URL de la API
+    const apiUrl = new URL(config.API_BASE_URL)
+    const hostname = apiUrl.hostname
+    
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      serverInfo.value.ip = '127.0.0.1 (Local)'
+    } else {
+      serverInfo.value.ip = hostname
+    }
+    
+    // Opcional: obtener más información del servidor si tienes un endpoint
+    // const response = await apiRequest('/api/server-info')
+    // const data = await response.json()
+    // serverInfo.value.name = data.serverName || config.SERVER_NAME
+  } catch (error) {
+    console.log('No se pudo obtener información del servidor:', error)
+    serverInfo.value.ip = 'No disponible'
+  }
+}
 
 const handleLogin = async () => {
   error.value = ''
@@ -47,6 +80,11 @@ const handleLogin = async () => {
     error.value = e.message
   }
 }
+
+// Ejecutar al montar el componente
+onMounted(() => {
+  getServerInfo()
+})
 </script>
 
 <style scoped>
@@ -77,6 +115,31 @@ const handleLogin = async () => {
   margin: 0 0 1rem 0;
   color: #42b983;
   text-align: center;
+}
+.server-info {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.server-info p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+.server-name {
+  font-weight: 600;
+  color: #495057 !important;
+}
+.server-ip {
+  font-family: 'Courier New', monospace;
+  background: #e9ecef;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 0.25rem;
 }
 .form-group label {
   font-weight: 500;
