@@ -41,11 +41,8 @@ const handleSubmit = async () => {
   }
   
   try {
-    const response = await apiRequest('/api/tareas', {
+    const data = await apiRequest('/api/tareas', {
       method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
       body: JSON.stringify({
         titulo: titulo.value,
         detalle: detalle.value,
@@ -53,20 +50,14 @@ const handleSubmit = async () => {
       })
     })
     
-    if (!response.ok) {
-      // Intentar obtener el mensaje de error del servidor
-      const errorData = await response.json().catch(() => null)
-      const errorMessage = errorData?.message || `Error ${response.status}: ${response.statusText}`
-      throw new Error(errorMessage)
-    }
-    
+    // La función apiRequest ya devuelve el JSON parseado y maneja errores
     titulo.value = ''
     detalle.value = ''
     estado.value = 'pendiente'
     mensaje.value = 'Tarea creada exitosamente.'
   } catch (error) {
     console.error('Error al crear tarea:', error)
-    mensaje.value = error.message
+    mensaje.value = error.message || 'Error al crear la tarea'
   }
 }
 </script>

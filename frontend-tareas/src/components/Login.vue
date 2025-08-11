@@ -63,21 +63,20 @@ const getServerInfo = async () => {
 const handleLogin = async () => {
   error.value = ''
   try {
-    const response = await apiRequest('/api/usuarios/login', {
+    const data = await apiRequest('/api/usuarios/login', {
       method: 'POST',
       body: JSON.stringify({ email: email.value, password: password.value })
     })
-    if (!response.ok) {
-      const data = await response.json()
-      throw new Error(data.message || 'Error de acceso')
-    }
-    const data = await response.json()
+    
+    // La función apiRequest ya devuelve el JSON parseado
     localStorage.setItem('token', data.token)
     token.value = data.token
     // Redirigir al inicio
     router.push('/')
   } catch (e) {
-    error.value = e.message
+    // El error ya viene formateado desde apiRequest
+    error.value = e.message || 'Error de acceso'
+    console.error('Error en login:', e)
   }
 }
 

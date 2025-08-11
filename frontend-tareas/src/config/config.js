@@ -17,12 +17,48 @@ export const config = {
 // Función helper para hacer requests a la API
 export const apiRequest = async (endpoint, options = {}) => {
   const url = `${config.API_BASE_URL}${endpoint}`
+  const token = localStorage.getItem('token')
+  
   const defaultOptions = {
     headers: {
       ...config.DEFAULT_HEADERS,
+      ...(token && { Authorization: `Bearer ${token}` }),
       ...(options.headers || {})
     }
   }
   
-  return fetch(url, { ...defaultOptions, ...options, headers: defaultOptions.headers })
+  try {
+    const response = await fetch(url, { ...defaultOptions, ...options, headers: defaultOptions.headers })
+    
+    // Si la respuesta no es exitosa, lanzar error con el status
+    if (!response.ok) {
+      let errorMessage = `Error ${response.status}: ${response.statusText}`
+      
+      try {
+        const errorData = await response.json()
+        errorMessage = errorData.mensaje || errorData.message || errorMessage
+      } catch (jsonError) {
+        // Si no se puede parsear JSON, usar el mensaje por defecto
+        console.warn('No se pudo parsear JSON del error:', jsonError)
+      }
+      
+      throw new Error(errorMessage)
+    }
+    
+    // Intentar parsear JSON, si falla devolver texto
+    const contentType = response.headers.get('content-type')
+    if (contentType && contentType.includes('application/json')) {
+      return await response.json()
+    } else {
+      return await response.text()
+    }
+  } catch (error) {
+    // Si es un error de red o fetch, mantener el mensaje original
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Error de conexión. Verifica que el servidor esté funcionando.')
+    }
+    
+    console.error('Error en apiRequest:', error)
+    throw error
+  }
 }

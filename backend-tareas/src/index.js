@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const tareaRoutes = require('../routes/tareaRoutes');
 const usuarioRoutes = require('../routes/usuarioRoutes');
+const snsRoutes = require('../routes/snsRoutes');
 const authMiddleware = require('../config/authMiddleware');
 
 const app = express();
@@ -36,6 +37,7 @@ app.use(express.json());
 app.use(authMiddleware);
 app.use('/api/tareas', tareaRoutes);
 app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/sns', snsRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

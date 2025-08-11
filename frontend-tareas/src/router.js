@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import FormCrearTarea from './components/FormCrearTarea.vue'
+import FormEnviarSNS from './components/FormEnviarSNS.vue'
 import Inicio from './components/Inicio.vue'
 import ListadoTareas from './components/ListadoTareas.vue'
 import Login from './components/Login.vue'
@@ -14,6 +15,11 @@ const routes = [
     path: '/crear-tarea',
     name: 'CrearTarea',
     component: FormCrearTarea
+  },
+  {
+    path: '/enviar-sns',
+    name: 'EnviarSNS',
+    component: FormEnviarSNS
   },
   {
     path: '/tareas',

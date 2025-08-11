@@ -15,6 +15,7 @@ function logout() {
     <router-link to="/">Inicio</router-link>
     <router-link to="/tareas">Listado de Tareas</router-link>
     <router-link to="/crear-tarea">Crear Tarea</router-link>
+    <router-link to="/enviar-sns">Enviar a SNS</router-link>
     <button class="logout-btn" @click="logout">Cerrar sesión</button>
   </nav>
   <router-view />

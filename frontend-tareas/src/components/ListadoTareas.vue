@@ -87,13 +87,10 @@ const tareaEditando = ref({})
 const fetchTareas = async () => {
   loading.value = true
   try {
-    const res = await apiRequest('/api/tareas', {
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    })
-    tareas.value = await res.json()
+    const data = await apiRequest('/api/tareas')
+    tareas.value = data
   } catch (e) {
+    console.error('Error al cargar tareas:', e)
     tareas.value = []
   } finally {
     loading.value = false
@@ -123,14 +120,13 @@ const guardarEdicion = async () => {
   try {
     await apiRequest(`/api/tareas/${tareaEditando.value._id}`, {
       method: 'PUT',
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      },
       body: JSON.stringify(tareaEditando.value)
     })
     await fetchTareas()
     cerrarModalEditar()
-  } catch (e) {}
+  } catch (e) {
+    console.error('Error al editar tarea:', e)
+  }
 }
 
 const confirmarEliminar = tarea => {
@@ -143,14 +139,13 @@ const cerrarModalEliminar = () => {
 const eliminarTarea = async () => {
   try {
     await apiRequest(`/api/tareas/${tareaSeleccionada.value._id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      }
+      method: 'DELETE'
     })
     await fetchTareas()
     cerrarModalEliminar()
-  } catch (e) {}
+  } catch (e) {
+    console.error('Error al eliminar tarea:', e)
+  }
 }
 
 onMounted(fetchTareas)
