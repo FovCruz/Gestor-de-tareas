@@ -1,2 +1,28 @@
-.DS_Store
+# Archivos de entorno y claves
 .env
+*.pem
+*.key
+
+# Dependencias Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Volúmenes de Mongo locales
+mongo_data/
+
+# Archivos de build temporales
+dist/
+build/
+
+# Configuración personal o backups
+*.bak
+*.tmp
+*.swp
+
+# Archivos de Docker
+*.pid

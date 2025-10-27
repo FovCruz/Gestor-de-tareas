@@ -39,7 +39,7 @@ app.use('/api/tareas', tareaRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/sns', snsRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });

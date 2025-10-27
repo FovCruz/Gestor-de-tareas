@@ -2,16 +2,16 @@
 
 Una aplicación full-stack para la gestión de tareas construida con Vue.js 3 en el frontend y Node.js/Express con MongoDB en el backend.
 
-## 📋 Características
+## Características
 
-- ✅ Crear, editar y eliminar tareas
-- 👤 Sistema de autenticación de usuarios
-- 🔒 Autenticación JWT
-- 📱 Interfaz responsive con Vue.js 3
-- 🗄️ Base de datos MongoDB
-- 🚀 API RESTful
+- Crear, editar y eliminar tareas
+- Sistema de autenticación de usuarios
+- Autenticación JWT
+- Interfaz responsive con Vue.js 3
+- Base de datos MongoDB
+- API RESTful
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 ### Backend
 - **Node.js** - Entorno de ejecución
@@ -27,7 +27,7 @@ Una aplicación full-stack para la gestión de tareas construida con Vue.js 3 en
 - **Vue Router** - Enrutamiento
 - **Vite** - Herramienta de construcción
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 tg-tareas/
@@ -43,7 +43,7 @@ tg-tareas/
     └── public/             # Archivos estáticos
 ```
 
-## 🚀 Instalación y Configuración
+## Instalación y Configuración
 
 ### Prerrequisitos
 
@@ -51,14 +51,7 @@ tg-tareas/
 - MongoDB (local o MongoDB Atlas)
 - npm o yarn
 
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/jacobvegatoro/tg-tareas.git
-cd tg-tareas
-```
-
-### 2. Configurar el Backend
+### Configurar el Backend
 
 ```bash
 # Navegar al directorio del backend
@@ -89,7 +82,7 @@ JWT_SECRET=tu_jwt_secret_muy_seguro
 NODE_ENV=development
 ```
 
-### 3. Configurar el Frontend
+### Configurar el Frontend
 
 ```bash
 # Navegar al directorio del frontend
@@ -99,7 +92,7 @@ cd ../frontend-tareas
 npm install
 ```
 
-## 🏃‍♂️ Ejecutar la Aplicación
+## Ejecutar la Aplicación
 
 ### Modo Desarrollo
 
@@ -134,7 +127,7 @@ npm run build      # Construir para producción
 npm run preview    # Vista previa de la construcción
 ```
 
-## 🌐 Despliegue en Producción
+## Despliegue en Producción
 
 ### Opción 1: Despliegue Manual
 
@@ -226,7 +219,7 @@ npm run build
 
 Para el backend, usar servicios como Railway, Render, o DigitalOcean.
 
-## 🔧 Configuración de Base de Datos
+## Configuración de Base de Datos
 
 ### MongoDB Local
 ```bash
@@ -245,7 +238,7 @@ brew services start mongodb/brew/mongodb-community
 3. Obtener la string de conexión
 4. Configurar en las variables de entorno
 
-## 📝 API Endpoints
+## API Endpoints
 
 ### Usuarios
 - `POST /api/usuarios/registro` - Registrar usuario
@@ -256,24 +249,3 @@ brew services start mongodb/brew/mongodb-community
 - `POST /api/tareas` - Crear nueva tarea
 - `PUT /api/tareas/:id` - Actualizar tarea
 - `DELETE /api/tareas/:id` - Eliminar tarea
-
-## 🤝 Contribuir
-
-1. Fork el repositorio
-2. Crear una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia ISC.
-
-## 👤 Autor
-
-Jacob Vega Toro - [@jacobvegatoro](https://github.com/jacobvegatoro)
-
-## 🐛 Reportar Problemas
-
-Si encuentras algún problema, por favor abre un [issue](https://github.com/jacobvegatoro/tg-tareas/issues) en GitHub.
-

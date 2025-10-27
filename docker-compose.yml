@@ -11,8 +11,6 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       CORS_ORIGIN: ${CORS_ORIGIN}
       NODE_ENV: production
-    expose:
-      - "${PORT}"
     ports:
       - "${PORT}:${PORT}"
     restart: unless-stopped
@@ -25,13 +23,19 @@ services:
         VITE_SERVER_NAME: ${VITE_SERVER_NAME}
     container_name: frontend-tareas
     ports:
-      - "8080:80"       # accedes en http://localhost:8080
+      - "8080:80"
     depends_on:
       - backend
     restart: unless-stopped
 
-# La red "default" ya existe y resuelve por nombre de servicio.
-# Si se necesita una red con nombre propio:
-# networks:
-#   default:
-#     name: mi_red_compartida
+  mongo:
+    image: mongo:7.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
