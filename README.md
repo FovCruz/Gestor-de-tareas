@@ -1,6 +1,6 @@
 # TG Tareas - Aplicación de Gestión de Tareas
 
-Una aplicación full-stack para la gestión de tareas construida con Vue.js 3 en el frontend y Node.js/Express con MongoDB en el backend.
+Aplicación full-stack para la gestión de tareas construida con Vue.js 3 en el frontend y Node.js/Express con MongoDB en el backend.
 
 ## Características
 
