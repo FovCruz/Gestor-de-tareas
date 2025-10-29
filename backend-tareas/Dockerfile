@@ -4,7 +4,7 @@ FROM node:20.12.2-alpine
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app
 
-# Copia package.json y package-lock.json (si existe)
+# Copia package.json y package-lock.json (si existe.)
 COPY package*.json ./
 
 # Instala las dependencias
