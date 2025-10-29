@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <form @submit.prevent="handleLogin" class="login-form">
-      <h2>Acceso al Sistema</h2>
+      <h2>Acceso al Sistema (dev-test1)</h2>
       <div class="server-info">
         <p class="server-name">Servidor: {{ serverInfo.name }}</p>
         <p class="server-ip">IP: {{ serverInfo.ip }}</p>
